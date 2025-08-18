@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+
+{% block title %}Create Profile - LinkTracker{% endblock %}
+
+{% block content %}
+<div class="create-container">
+    <div class="create-header">
+        <a href="{% url 'home' %}" class="back-btn">
+            <i class="fas fa-arrow-left"></i>
+            Back to Home
+        </a>
+    </div>
+    
+    <div class="create-content">
+        <div class="create-form-container">
+            <div class="form-header">
+                <h1 class="form-title">
+                    <span class="gradient-text">Create</span> Your Profile
+                    <span class="sparkle">✨</span>
+                </h1>
+                <p class="form-subtitle">
+                    Start building your link tree in seconds
+                </p>
+            </div>
+            
+            <form method="post" class="create-form">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="name" class="form-label">
+                        <i class="fas fa-user"></i>
+                        Profile Name
+                    </label>
+                    <input type="text" 
+                           id="name" 
+                           name="name" 
+                           placeholder="Your awesome name" 
+                           maxlength="100"
+                           class="form-input form-input-large" 
+                           required
+                           autocomplete="name">
+                    <div class="form-hint">
+                        This will be displayed on your profile page
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary btn-large">
+                    <i class="fas fa-rocket"></i>
+                    Create My Profile
+                </button>
+            </form>
+            
+            <div class="create-features">
+                <h3>What you'll get:</h3>
+                <ul class="features-list">
+                    <li>
+                        <i class="fas fa-check text-success"></i>
+                        Beautiful, responsive profile page
+                    </li>
+                    <li>
+                        <i class="fas fa-check text-success"></i>
+                        Unlimited custom links
+                    </li>
+                    <li>
+                        <i class="fas fa-check text-success"></i>
+                        Click tracking and analytics
+                    </li>
+                    <li>
+                        <i class="fas fa-check text-success"></i>
+                        Easy drag-and-drop link management
+                    </li>
+                    <li>
+                        <i class="fas fa-check text-success"></i>
+                        Mobile-friendly design
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="preview-container">
+            <div class="preview-phone">
+                <div class="preview-screen">
+                    <div class="preview-profile">
+                        <div class="preview-avatar">🌟</div>
+                        <div class="preview-name" id="preview-name">Your Name</div>
+                        <div class="preview-links">
+                            <div class="preview-link">
+                                <span class="preview-emoji">🌐</span>
+                                <span>My Website</span>
+                            </div>
+                            <div class="preview-link">
+                                <span class="preview-emoji">📧</span>
+                                <span>Contact Me</span>
+                            </div>
+                            <div class="preview-link preview-link-add">
+                                <span class="preview-emoji">➕</span>
+                                <span>Add more links...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const nameInput = document.getElementById('name');
+    const previewName = document.getElementById('preview-name');
+    
+    nameInput.addEventListener('input', function() {
+        previewName.textContent = this.value || 'Your Name';
+    });
+});
+</script>
+{% endblock %}

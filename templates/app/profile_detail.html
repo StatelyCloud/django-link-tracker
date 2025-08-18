@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ profile.full_name }} - LinkTracker{% endblock %}
+
+{% block content %}
+<div class="profile-container">
+    <div class="profile-header">
+        <div class="profile-background"></div>
+        <div class="profile-content">
+            <div class="profile-avatar-large">{{ profile.profile_image }}</div>
+            <h1 class="profile-name">{{ profile.full_name }}</h1>
+            {% if profile.bio %}
+                <p class="profile-bio">{{ profile.bio }}</p>
+            {% endif %}
+            <div class="profile-stats">
+                <div class="stat-item">
+                    <span class="stat-number">{{ profile.view_count }}</span>
+                    <span class="stat-label">Views</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">{{ links|length }}</span>
+                    <span class="stat-label">Links</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">{{ total_clicks }}</span>
+                    <span class="stat-label">Clicks</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="links-container">
+        {% for link in links %}
+        <a href="{% url 'link_redirect' profile.slug link.id %}" 
+           class="link-card" 
+           target="_blank"
+           data-link-type="{{ link.link_type }}">
+            <div class="link-emoji">{{ link.emoji }}</div>
+            <div class="link-content">
+                <div class="link-title">{{ link.title }}</div>
+                {% if link.description %}
+                    <div class="link-description">{{ link.description }}</div>
+                {% endif %}
+            </div>
+            <div class="link-arrow">
+                <i class="fas fa-external-link-alt"></i>
+            </div>
+            <div class="link-clicks">{{ link.click_count }}</div>
+        </a>
+        {% empty %}
+        <div class="empty-state">
+            <div class="empty-icon">🔗</div>
+            <h3>No links yet</h3>
+            <p>This profile doesn't have any links yet.</p>
+        </div>
+        {% endfor %}
+    </div>
+    
+    <div class="profile-footer">
+        <div class="powered-by">
+            <span>Powered by</span>
+            <a href="{% url 'home' %}" class="brand-link">
+                <span class="gradient-text">Link</span>Tracker
+            </a>
+        </div>
+        <a href="{% url 'create_profile' %}" class="create-yours-btn">
+            <i class="fas fa-plus"></i>
+            Create Yours
+        </a>
+    </div>
+</div>
+
+<style>
+.link-card[data-link-type="social"] {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+.link-card[data-link-type="website"] {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+.link-card[data-link-type="portfolio"] {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+.link-card[data-link-type="contact"] {
+    background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+}
+.link-card[data-link-type="shop"] {
+    background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+}
+.link-card[data-link-type="music"] {
+    background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+}
+.link-card[data-link-type="video"] {
+    background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+}
+.link-card[data-link-type="blog"] {
+    background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+}
+</style>
+{% endblock %}

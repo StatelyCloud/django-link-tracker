@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% block title %}LinkTracker - Create Your Link Tree{% endblock %}
+
+{% block content %}
+<div class="home-container">
+    <div class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-title">
+                <span class="gradient-text">Link</span>Tracker
+                <span class="sparkle">✨</span>
+            </h1>
+            <p class="hero-subtitle">
+                Create your own link tree in seconds. Share all your important links in one beautiful place.
+            </p>
+            <a href="{% url 'create_profile' %}" class="cta-button">
+                <i class="fas fa-rocket"></i>
+                Create Your Profile
+            </a>
+        </div>
+        
+        <div class="hero-visual">
+            <div class="phone-mockup">
+                <div class="phone-screen">
+                    <div class="mock-profile">
+                        <div class="mock-avatar">🌟</div>
+                        <div class="mock-name">Your Name</div>
+                        <div class="mock-links">
+                            <div class="mock-link">🌐 Website</div>
+                            <div class="mock-link">📱 Social</div>
+                            <div class="mock-link">💼 Portfolio</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    {% if recent_profiles %}
+    <div class="featured-section">
+        <h2 class="section-title">🔥 Featured Profiles</h2>
+        <div class="profiles-grid">
+            {% for profile in recent_profiles %}
+            <div class="profile-card">
+                <div class="profile-avatar">{{ profile.profile_image }}</div>
+                <h3 class="profile-name">{{ profile.name }}</h3>
+                <div class="profile-stats">
+                    <span class="stat">
+                        <i class="fas fa-eye"></i>
+                        {{ profile.view_count }} views
+                    </span>
+                    <span class="stat">
+                        <i class="fas fa-link"></i>
+                        {{ profile.links.count }} links
+                    </span>
+                </div>
+                <a href="{% url 'profile_detail' profile.slug %}" class="profile-link">
+                    Visit Profile
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+    
+    <div class="features-section">
+        <h2 class="section-title">Why Choose LinkTracker?</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>Lightning Fast</h3>
+                <p>Create your profile in under 30 seconds</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🎨</div>
+                <h3>Beautiful Design</h3>
+                <p>Modern, responsive design that looks great everywhere</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3>Analytics</h3>
+                <p>Track clicks and views on all your links</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔧</div>
+                <h3>Easy to Use</h3>
+                <p>Simple drag-and-drop interface for managing links</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

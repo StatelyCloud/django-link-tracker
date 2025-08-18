@@ -1,0 +1,215 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit {{ profile.full_name }} - LinkTracker{% endblock %}
+
+{% block content %}
+<div class="edit-container">
+    <div class="edit-header">
+        <div class="edit-nav">
+            <a href="{% url 'profile_detail' profile.slug %}" class="back-btn">
+                <i class="fas fa-arrow-left"></i>
+                Back to Profile
+            </a>
+            <h1 class="edit-title">Edit Profile</h1>
+            <a href="{% url 'profile_detail' profile.slug %}" class="preview-btn">
+                <i class="fas fa-eye"></i>
+                Preview
+            </a>
+        </div>
+    </div>
+    
+    <div class="edit-content">
+        <div class="edit-section">
+            <h2 class="section-title">
+                <i class="fas fa-user"></i>
+                Profile Info
+            </h2>
+            <form method="post" class="profile-form">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="profile_name">Profile Name</label>
+                    <input type="text" 
+                           id="profile_name" 
+                           name="profile_name" 
+                           value="{{ profile.full_name }}" 
+                           maxlength="100"
+                           class="form-input">
+                </div>
+                <div class="form-group">
+                    <label for="profile_bio">Bio</label>
+                    <textarea id="profile_bio" 
+                              name="profile_bio" 
+                              maxlength="300"
+                              placeholder="Tell people about yourself..."
+                              class="form-input bio-input">{{ profile.bio }}</textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save"></i>
+                    Save Changes
+                </button>
+            </form>
+        </div>
+        
+        <div class="edit-section">
+            <h2 class="section-title">
+                <i class="fas fa-link"></i>
+                Links
+                <span class="link-count">({{ links|length }})</span>
+            </h2>
+            
+            <form method="post" action="{% url 'add_link' profile.slug %}" class="add-link-form">
+                {% csrf_token %}
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="emoji">Emoji</label>
+                        <select id="emoji" name="emoji" class="form-select emoji-select">
+                            <option value="🔗">🔗 Default</option>
+                            <option value="🌐">🌐 Website</option>
+                            <option value="📱">📱 Social</option>
+                            <option value="💼">💼 Portfolio</option>
+                            <option value="📧">📧 Contact</option>
+                            <option value="🛍️">🛍️ Shop</option>
+                            <option value="🎵">🎵 Music</option>
+                            <option value="🎥">🎥 Video</option>
+                            <option value="📝">📝 Blog</option>
+                            <option value="💎">💎 Premium</option>
+                            <option value="🚀">🚀 Launch</option>
+                            <option value="⚡">⚡ Power</option>
+                            <option value="🔥">🔥 Hot</option>
+                            <option value="🌟">🌟 Star</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="title">Title</label>
+                        <input type="text" 
+                               id="title" 
+                               name="title" 
+                               placeholder="Link title" 
+                               maxlength="100"
+                               class="form-input" 
+                               required>
+                    </div>
+                    <div class="form-group">
+                        <label for="url">URL</label>
+                        <input type="url" 
+                               id="url" 
+                               name="url" 
+                               placeholder="https://example.com" 
+                               class="form-input" 
+                               required>
+                    </div>
+                    <div class="form-group">
+                        <label for="link_type">Type</label>
+                        <select id="link_type" name="link_type" class="form-select">
+                            <option value="website">🌐 Website</option>
+                            <option value="social">📱 Social Media</option>
+                            <option value="portfolio">💼 Portfolio</option>
+                            <option value="contact">📧 Contact</option>
+                            <option value="shop">🛍️ Shop</option>
+                            <option value="music">🎵 Music</option>
+                            <option value="video">🎥 Video</option>
+                            <option value="blog">📝 Blog</option>
+                            <option value="other">🔗 Other</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <input type="text" 
+                           id="description" 
+                           name="description" 
+                           placeholder="Brief description of this link" 
+                           maxlength="200"
+                           required
+                           class="form-input">
+                </div>
+                <button type="submit" class="btn btn-success">
+                    <i class="fas fa-plus"></i>
+                    Add Link
+                </button>
+            </form>
+        </div>
+        
+        <div class="edit-section">
+            <h3 class="subsection-title">Current Links</h3>
+            <div class="links-list" id="sortable-links">
+                {% for link in links %}
+                <div class="link-item" data-id="{{ link.id }}">
+                    <div class="link-handle">
+                        <i class="fas fa-grip-vertical"></i>
+                    </div>
+                    <div class="link-info">
+                        <div class="link-emoji">{{ link.emoji }}</div>
+                        <div class="link-details">
+                            <div class="link-title">{{ link.title }}</div>
+                            <div class="link-url">{{ link.url }}</div>
+                            {% if link.description %}
+                                <div class="link-description">{{ link.description }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="link-stats">
+                        <span class="click-count">{{ link.click_count }} clicks</span>
+                        <span class="link-type">{{ link.link_type }}</span>
+                    </div>
+                    <div class="link-actions">
+                        <form method="post" action="{% url 'delete_link' profile.slug link.id %}" class="delete-form">
+                            {% csrf_token %}
+                            <button type="submit" 
+                                    class="btn btn-danger btn-sm"
+                                    onclick="return confirm('Are you sure you want to delete this link?')">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="empty-links">
+                    <div class="empty-icon">🔗</div>
+                    <p>No links yet. Add your first link above!</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Make links sortable
+document.addEventListener('DOMContentLoaded', function() {
+    const linksList = document.getElementById('sortable-links');
+    if (linksList && linksList.children.length > 1) {
+        new Sortable(linksList, {
+            handle: '.link-handle',
+            animation: 150,
+            ghostClass: 'sortable-ghost',
+            chosenClass: 'sortable-chosen',
+            dragClass: 'sortable-drag',
+            onEnd: function(evt) {
+                const orders = [];
+                Array.from(linksList.children).forEach((item, index) => {
+                    if (item.dataset.id) {
+                        orders.push({
+                            id: item.dataset.id,
+                            order: index + 1
+                        });
+                    }
+                });
+                
+                // Send to server
+                fetch(`{% url 'update_link_order' profile.slug %}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    },
+                    body: JSON.stringify({orders: orders})
+                });
+            }
+        });
+    }
+});
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+{% endblock %}
