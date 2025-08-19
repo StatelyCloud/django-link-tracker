@@ -27,28 +27,26 @@ class StatelyClient:
 stately_client = StatelyClient()
 
 
-async def get_profile_by_slug(slug: str) -> Optional[Profile]:
-    """Get a profile by its slug."""
+async def get_profile_and_links(slug: str) -> tuple[Optional[Profile], List[Link]]:
+    """Get a profile and all its links with a single list call."""
     try:
-        profile = await stately_client.client.get(Profile, key_path("/p-{slug}", slug=slug))
-        return profile if isinstance(profile, Profile) else None
-    except StatelyError as e:
-        logger.error(f"Error getting profile by slug '{slug}': {e}")
-        return None
-
-
-async def get_links_for_profile(profile_slug: str) -> List[Link]:
-    """Get all links for a profile."""
-    try:
-        prefix = key_path("/p-{slug}/l", slug=profile_slug)
+        prefix = key_path("/p-{slug}", slug=slug)
         list_resp = await stately_client.client.begin_list(prefix, limit=100)
-        items = []
+        
+        profile = None
+        links = []
+
         async for item in list_resp:
-            items.append(item)
-        return [item for item in items if isinstance(item, Link)]
+            if isinstance(item, Profile):
+                profile = item
+            elif isinstance(item, Link):
+                links.append(item)
+        
+        return profile, links
     except StatelyError as e:
-        logger.error(f"Error getting links for profile '{profile_slug}': {e}")
-        return []
+        logger.error(f"Error getting profile and links for '{slug}': {e}")
+        return None, []
+
 
 
 async def get_link_by_id(link_id: int, profile_slug: str) -> Optional[Link]:
@@ -64,7 +62,7 @@ async def get_link_by_id(link_id: int, profile_slug: str) -> Optional[Link]:
 
 async def create_link(profile_slug: str, title: str, url: str, emoji: str = "🔗", link_type: str = "other", description: str = "") -> Link:
     """Create a new link for a profile."""
-    existing_links = await get_links_for_profile(profile_slug)
+    _, existing_links = await get_profile_and_links(profile_slug)
     
     max_order = max([link.order for link in existing_links], default=0)
     

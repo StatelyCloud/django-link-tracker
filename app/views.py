@@ -9,8 +9,7 @@ from django.views.generic import TemplateView
 
 # StatelyDB client functions
 from .stately_client import (
-    get_profile_by_slug,
-    get_links_for_profile,
+    get_profile_and_links,
     get_link_by_id,
     increment_profile_views,
     increment_link_clicks,
@@ -28,14 +27,14 @@ import random
 # Main profile view - shows a user's profile page with their links
 async def profile_detail(request, slug):
     try:
-        profile = await get_profile_by_slug(slug)
+        profile, all_links = await get_profile_and_links(slug)
         if not profile or not profile.is_active:
             raise Http404("Profile not found")
         
         # Increment view count 
         await increment_profile_views(slug)
         
-        links = [link for link in await get_links_for_profile(slug) if link.is_active]
+        links = [link for link in all_links if link.is_active]
         links.sort(key=lambda x: (x.order, -x.created_at if x.created_at else 0))
         
         context = {
@@ -50,11 +49,11 @@ async def profile_detail(request, slug):
 
 
 async def profile_edit(request, slug):
-    profile = await get_profile_by_slug(slug)
+    profile, all_links = await get_profile_and_links(slug)
     if not profile:
         raise Http404("Profile not found")
     
-    links = [link for link in await get_links_for_profile(slug)]
+    links = list(all_links)
     links.sort(key=lambda x: (x.order, -x.created_at if x.created_at else 0))
     
     if request.method == 'POST':

@@ -95,7 +95,7 @@ This tutorial demonstrates key StatelyDB concepts:
 
 ### **Key Functions**
 
-- `get_profile_by_slug()` - Fetch profile data
+- `get_profile_and_links()` - Efficiently fetch profile and all links in single call
 - `create_profile()` - Create new profiles
 - `increment_profile_views()` - Real-time analytics
 - `create_link()` - Add links to profiles
