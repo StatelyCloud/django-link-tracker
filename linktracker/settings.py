@@ -48,7 +48,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'linktracker.wsgi.application'
+ASGI_APPLICATION = 'linktracker.asgi.application'
 
 AUTH_PASSWORD_VALIDATORS = [
     {
