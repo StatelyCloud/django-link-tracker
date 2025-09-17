@@ -1,2 +1,2 @@
-language: python
-command: uvicorn linktracker.asgi:application --reload --port 8000
+language: "python"
+command: "uvicorn linktracker.asgi:application --reload --port 8000"
