@@ -1,4 +1,4 @@
-[![Build with Stately](https://gist.githubusercontent.com/ryan-stately/51a07a4b3123f5cb89c8b9a1f3edf214/raw/158cb441aa65d05dd1a75b85dffad2feeb473f6b/build-icon.svg](https://console.stately.com/new?repo=https%3A%2F%2Fgithub.com%2FStatelyCloud%2Fdjango-link-tracker)
+[![Build with Stately](https://gist.githubusercontent.com/ryan-stately/51a07a4b3123f5cb89c8b9a1f3edf214/raw/158cb441aa65d05dd1a75b85dffad2feeb473f6b/build-icon.svg)](https://console.stately.com/new?repo=https%3A%2F%2Fgithub.com%2FStatelyCloud%2Fdjango-link-tracker)
 
 # 🔗 LinkTracker - Django + StatelyDB Tutorial
 
@@ -25,7 +25,7 @@ pip install -r requirements.txt
 
 ### 2. **Setup StatelyDB**
 
-[![Build with Stately](https://gist.githubusercontent.com/ryan-stately/51a07a4b3123f5cb89c8b9a1f3edf214/raw/158cb441aa65d05dd1a75b85dffad2feeb473f6b/build-icon.svg](https://console.stately.com/new?repo=https%3A%2F%2Fgithub.com%2FStatelyCloud%2Fdjango-link-tracker)
+[![Build with Stately](https://gist.githubusercontent.com/ryan-stately/51a07a4b3123f5cb89c8b9a1f3edf214/raw/158cb441aa65d05dd1a75b85dffad2feeb473f6b/build-icon.svg)](https://console.stately.com/new?repo=https%3A%2F%2Fgithub.com%2FStatelyCloud%2Fdjango-link-tracker)
 
 Click on the button above ^ and setup your Store.
 
