@@ -1,2 +1,9 @@
 language: "python"
-command: "uvicorn linktracker.asgi:application --reload --port 8000"
+steps: 
+  - name: "Install Dependencies"
+    command: |
+      python3 -m venv venv
+      source venv/bin/activate
+      pip install -r requirements.txt
+  - name: "Run the app"
+    command: "uvicorn linktracker.asgi:application --reload --port 8000"
