@@ -14,55 +14,47 @@ A modern link tree application built with Django and StatelyDB - learn how to in
 - **Mobile First**: Fully responsive design that looks great on all devices
 - **Modern UI**: Hip, gradient-filled design with smooth animations
 
+## Prerequisites
+
+* **Stately CLI**
+   ```bash
+   curl -sL https://stately.cloud/install | sh
+   stately login
+   ```
+* **Python 3**
+  
+  >Setup is system dependent
+
 ## 🚀 Quick Start
 
-### 1. **Clone and Install**
+
+
+### **Clone and Install Dependencies**
 
 ```bash
 git clone https://github.com/StatelyCloud/django-link-tracker
 cd django-link-tracker
+```
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### 2. **Setup StatelyDB**
-
-Click on this button and setup your Store.
+### **Create a StatelyDB Store**
+Follow the instructions in this link to finish setting up this project.
 
 [![Build with Stately](https://gist.githubusercontent.com/ryan-stately/51a07a4b3123f5cb89c8b9a1f3edf214/raw/158cb441aa65d05dd1a75b85dffad2feeb473f6b/build-icon.svg)](https://console.stately.cloud/new?repo=https%3A%2F%2Fgithub.com%2FStatelyCloud%2Fdjango-link-tracker)
 
-
-1. Install the Stately CLI and login (if you haven't already)
-
-   ```bash
-    curl -sL https://stately.cloud/install | sh
-    stately login
-   ```
-
-1. Generate the SDK
-   ```bash
-   stately schema generate --language python --schema-id <your_schema_id> ./generated
-   ```
-1. Rename and update the `.env.local.example` file in the project root:
-
-   ```bash
-   # rename to .env.local and update
-   STATELY_STORE_ID=your_store_id_here
-   STATELY_ACCESS_KEY=your_access_key_here
-   ```
-
-### 3. **Install Dependencies and Run the Application**
+### **Run the Application**
+Finally, run the link tracker application!
 
 ```bash
-# Install dependencies
-python -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
-
-# Run the application
 uvicorn linktracker.asgi:application --reload --port 8000
 ```
 
-### 4. **Visit the App**
+### **Visit the App**
 
 - Home page: http://127.0.0.1:8000/
 - Create your first profile and start adding links!
