@@ -1,3 +1,5 @@
+[![Build with Stately](https://gist.githubusercontent.com/ryan-stately/51a07a4b3123f5cb89c8b9a1f3edf214/raw/158cb441aa65d05dd1a75b85dffad2feeb473f6b/build-icon.svg](https://console.stately.com/new?repo=https%3A%2F%2Fgithub.com%2FStatelyCloud%2Fdjango-link-tracker)
+
 # 🔗 LinkTracker - Django + StatelyDB Tutorial
 
 A modern link tree application built with Django and StatelyDB - learn how to integrate StatelyDB with Django for real-time data management!
@@ -23,10 +25,11 @@ pip install -r requirements.txt
 
 ### 2. **Setup StatelyDB**
 
-1. Create a free account at [StatelyDB](https://stately.cloud)
-1. Create a new store and access key to get your credentials. Take note of the Access Key and Store ID.
-1. Click on the Schema ID of your newly created store, paste the contents of [the demo schema](/schema.ts) and click `Publish`.
-1. Install the Stately CLI and login
+[![Build with Stately](https://gist.githubusercontent.com/ryan-stately/51a07a4b3123f5cb89c8b9a1f3edf214/raw/158cb441aa65d05dd1a75b85dffad2feeb473f6b/build-icon.svg](https://console.stately.com/new?repo=https%3A%2F%2Fgithub.com%2FStatelyCloud%2Fdjango-link-tracker)
+
+Click on the button above ^ and setup your Store.
+
+1. Install the Stately CLI and login (if you haven't already)
 
    ```bash
     curl -sL https://stately.cloud/install | sh
@@ -45,9 +48,15 @@ pip install -r requirements.txt
    STATELY_ACCESS_KEY=your_access_key_here
    ```
 
-### 3. **Run the Application**
+### 3. **Install Dependencies and Run the Application**
 
 ```bash
+# Install dependencies
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+
+# Run the application
 uvicorn linktracker.asgi:application --reload --port 8000
 ```
 
