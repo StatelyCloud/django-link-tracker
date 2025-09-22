@@ -1,6 +1,3 @@
-[![Build with Stately](https://gist.githubusercontent.com/ryan-stately/51a07a4b3123f5cb89c8b9a1f3edf214/raw/158cb441aa65d05dd1a75b85dffad2feeb473f6b/build-icon.svg)](https://console.stately.cloud/new?repo=https%3A%2F%2Fgithub.com%2FStatelyCloud%2Fdjango-link-tracker)
-
-
 # 🔗 LinkTracker - Django + StatelyDB Tutorial
 
 A modern link tree application built with Django and StatelyDB - learn how to integrate StatelyDB with Django for real-time data management!
@@ -27,25 +24,30 @@ A modern link tree application built with Django and StatelyDB - learn how to in
 
 ## 🚀 Quick Start
 
+Click this button and follow the steps to get your app running!
 
+[![Build with Stately](https://gist.githubusercontent.com/ryan-stately/51a07a4b3123f5cb89c8b9a1f3edf214/raw/158cb441aa65d05dd1a75b85dffad2feeb473f6b/build-icon.svg)](https://console.stately.cloud/new?repo=https%3A%2F%2Fgithub.com%2FStatelyCloud%2Fdjango-link-tracker)
 
-### **Clone and Install Dependencies**
+### Local Development
 
-```bash
+These steps are provided as reference but you should have preformed the same steps when you bootstrapped your project above.
+
+**Clone and Install Dependencies**
+```bash Clone the Repository
 git clone https://github.com/StatelyCloud/django-link-tracker
 cd django-link-tracker
 ```
-
-```bash
+**Install Dependencies**
+```bash Install Dependencies
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
 ```
-
-### **Create a StatelyDB Store**
-Follow the instructions in this link to finish setting up this project.
-
-[![Build with Stately](https://gist.githubusercontent.com/ryan-stately/51a07a4b3123f5cb89c8b9a1f3edf214/raw/158cb441aa65d05dd1a75b85dffad2feeb473f6b/build-icon.svg)](https://console.stately.cloud/new?repo=https%3A%2F%2Fgithub.com%2FStatelyCloud%2Fdjango-link-tracker)
+**Login and Generate the SDK**
+```bash Login and Generate the SDK
+stately login
+stately schema generate --language python --schema-id $SCHEMA_ID ./generated
+```
 
 ### **Run the Application**
 Finally, run the link tracker application!
